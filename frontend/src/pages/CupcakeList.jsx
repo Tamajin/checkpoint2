@@ -17,6 +17,16 @@ export default function CupcakeList() {
 
   // Step 3: get all accessories
 
+  const [accessories, setAccessories] = useState([]);
+
+  useEffect(() => {
+    axios
+    .get("http://localhost:4000/accessories")
+    .then(response => response.data)
+    .then(data => setAccessories(data))  
+  }, []);
+
+
   return (
     <>
       <h1>My cupcakes</h1>
@@ -26,6 +36,10 @@ export default function CupcakeList() {
           <select id="cupcake-select">
             <option value="">---</option>
             {/* Step 4: add an option for each accessory */}
+            {accessories && accessories
+            .map((accessorie)=>(
+              <option value={accessorie.id} key={accessorie.id}>{accessorie.name}</option>
+            ))}
           </select>
         </label>
       </form>
