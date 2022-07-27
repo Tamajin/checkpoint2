@@ -26,6 +26,12 @@ export default function CupcakeList() {
     .then(data => setAccessories(data))  
   }, []);
 
+  const [selectedAccessory, setSelectedAccessory] = useState("");
+
+  const handleChangeSelectedAccessory = (e) => {
+    e.preventDefault();
+    setSelectedAccessory(e.target.value);
+  }
 
   return (
     <>
@@ -33,23 +39,36 @@ export default function CupcakeList() {
       <form className="center">
         <label htmlFor="cupcake-select">
           Filter by{" "}
-          <select id="cupcake-select">
+          <select 
+          id="cupcake-select"
+          onChange={handleChangeSelectedAccessory}
+          >
             <option value="">---</option>
             {/* Step 4: add an option for each accessory */}
             {accessories && accessories
             .map((accessorie)=>(
-              <option value={accessorie.id} key={accessorie.id}>{accessorie.name}</option>
+              <option 
+              value={accessorie.id} 
+              key={` key + ${accessorie.id}`}
+              >{accessorie.name}
+              </option>
             ))}
           </select>
         </label>
       </form>
       <ul className="cupcake-list" id="cupcake-list">
         {/* Step 2: repeat this block for each cupcake */}
+        
         {cupcakes && cupcakes
-        .map((cupcake)=> <Cupcake cupcake={cupcake}/>)}
+        .filter((cupcake) => !selectedAccessory || cupcake.accessory_id === selectedAccessory)
+        .map((cupcake)=> 
         <li className="cupcake-item">
-          
-        </li>
+        <Cupcake 
+        cupcake={cupcake} 
+        key={cupcake.id}
+        />
+        </li>)}          
+        
         {/* end of block */} 
       </ul>
     </>
