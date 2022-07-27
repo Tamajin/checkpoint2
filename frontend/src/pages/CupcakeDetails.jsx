@@ -1,9 +1,24 @@
-import React from 'react'
+import Cupcake from "@components/Cupcake";
+import axios from "axios";
+import React, { useEffect, useState } from "react"
+import { useParams } from "react-router-dom"
 
-const CupcakeDetails = () => {
+export default function CupcakeDetails () {
+    const { id } = useParams();
+    const [ details, setDetails ] = useState( [] )
+
+    useEffect(() => {
+        axios
+        .get(`http://localhost:4000/cupcakes/${id}`)
+        .then(response => response.data)
+        .then(data => setDetails(data))
+      }, []);
+    
+
   return (
-    <div>CupcakeDetails</div>
+    <>
+    <Cupcake cupcake={details}/>
+    </>
   )
 }
 
-export default CupcakeDetails

@@ -64,7 +64,7 @@ export default function CupcakeList() {
         .filter((cupcake) => !selectedAccessory || cupcake.accessory_id === selectedAccessory)
         .map((cupcake)=> 
         <li className="cupcake-item">
-        <Link to={`cupcakes/${cupcake.id}`}>
+        <Link to={`/cupcakes/${cupcake.id}`}>
         <Cupcake 
         cupcake={cupcake} 
         key={cupcake.id}
