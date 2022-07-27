@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from "react";
 import Cupcake from "@components/Cupcake";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 export default function CupcakeList() {
   // Step 1: get all cupcakes
@@ -63,10 +64,12 @@ export default function CupcakeList() {
         .filter((cupcake) => !selectedAccessory || cupcake.accessory_id === selectedAccessory)
         .map((cupcake)=> 
         <li className="cupcake-item">
+        <Link to={`cupcakes/${cupcake.id}`}>
         <Cupcake 
         cupcake={cupcake} 
         key={cupcake.id}
         />
+        </Link>
         </li>)}          
         
         {/* end of block */} 
